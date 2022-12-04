@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% Margins
+\usepackage[top=2.5cm, left=3cm, right=3cm, bottom=4.0cm]{geometry}
+% Colour table cells
+\usepackage[table]{xcolor}
+
+% Get larger line spacing in table
+\newcommand{\tablespace}{\\[1.25mm]}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\tstrut{\rule{0pt}{2.0ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+
+%%%%%%%%%%%%%%%%%
+%     Title     %
+%%%%%%%%%%%%%%%%%
+\title{\large Solving F1tenth Racing with Deep Q-Networks}
+\author{\large Ethan Callanan, Anshul Pattoo, John Doe, John Doe}
+% \cfoot{\thepage}
+\begin{document}
+
+% Set page numbering
+\pagenumbering{arabic}
+
+% --------------------------------------------------- % 
+% NOTE: Numbering doesn't start from title page; can be fixed later %
+% --------------------------------------------------- % 
+
+\makeatletter
+    \begin{titlepage}
+        \begin{center}
+        \vbox{}\vspace{5cm}
+            {\@title }\\[3cm] 
+            {\@author}\\[0.5cm]
+            {\large Queen's University}
+            \null
+            \vfill 
+            {\large Fall 2022}
+        \end{center}
+    \end{titlepage}
+\makeatother
+
+\newpage
+%%%%%%%%%%%%%%%%%
+%  Introduction and Problem Formulation   %
+%%%%%%%%%%%%%%%%%
+\section{Introduction and Problem Formulation}
+
+We aim to design deep reinforcement  
+
+In this section you need to provide a short introduction to the problem. What is the problem that you are trying to solve. You should also provide information regarding action space, state space and reward scheme.
+
+%%%%%%%%%%%%%%%%%
+%   State/Observation Space   %
+%%%%%%%%%%%%%%%%%
+
+\section{State/Observation Space}
+
+What is the state and observation space of your problem. What is the size of the state space. Is it continuous or discrete? For example in the mountain car problem mentioned in the class (SARSA tutorial), the observation space in a vector [car position, car velocity]. As this is a one-dimensional problem, with a car moving on a curve like feature, its location is given by a continuous value between [-1.2,0.6] and the velocity is a bounded continuous value between [-0.07,0.07].
+
+\section{Action Space}
+
+The same as observation space you need to specify your action space, what are the actions in your problem. What is the size of the action space? Is it continuous or discrete? For example, the action space in mountain car problem is discrete and given as [Left, Neutral, Right]. 
+
+\section{Reward Scheme}
+
+Here you need to describe your reward formulation. In the previous example, reward formulation is defined as:
+
+\section{Methodology and Algorithm Description}
+
+The description of the algorithm, network architecture and your implementation. What kind of methods you explored to solve the problem? If you had to for example, use any type of discretization method to discretize your observation space you can describe it here.
+
+The selection of hyperparameters can also be discussed here. This process is important in determining how the agent will function.
+
+\section{Results}
+
+For the results section, you should discuss why you obtained the results you did. What if you tried a different hyperparameter, how would it have affected your results?
+If you are adding figures or table to visualize your results make sure to add informative captions to describe the figures and tables. 
+
+\section{Discussion}
+
+In this section you can provide some information about what were the challenges you had during the implementation and how you overcame them. Finally, you can discuss what future work and improvement you may consider later.
+Here you can also add each group member contribution in this project. 
+
+\end{document}
