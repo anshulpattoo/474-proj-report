@@ -4,6 +4,10 @@
 \usepackage{amsmath,amssymb}
 \usepackage{parskip}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{IEEEtrantools}
+\usepackage{cite} % to cite as [1-2], not [1], [2]
+
 
 % Margins
 \usepackage[top=2.5cm, left=3cm, right=3cm, bottom=4.0cm]{geometry}
@@ -19,7 +23,7 @@
 %%%%%%%%%%%%%%%%%
 %     Title     %
 %%%%%%%%%%%%%%%%%
-\title{\large Solving F1tenth Racing with Deep Q-Networks}
+\title{\large Solving Car Racing with Deep Q-Networks}
 \author{\large Ethan Callanan, Anshul Pattoo, John Doe, John Doe}
 % \cfoot{\thepage}
 \begin{document}
@@ -51,9 +55,15 @@
 %%%%%%%%%%%%%%%%%
 \section{Introduction and Problem Formulation}
 
-We aim to design deep reinforcement  
+We aim to design deep Q-Networks (DQN) that are able to solve the reinforcement learning problem posed by the Car Racing environment, a 2D autonomous vehicle which navigates a race track, from OpenAI Gym. OpenAI Gym is a notable open-source repository of reinforcement learning (RL) environments and development tools, assembled for developers to primarily apply RL agents that can solve problems posed by environments. This repository has enabled the development of a range of user-generated solutions to problems. 
 
-In this section you need to provide a short introduction to the problem. What is the problem that you are trying to solve. You should also provide information regarding action space, state space and reward scheme.
+The objective of Car Racing is to ``pilot a car through a randomly generated two-dimensional world of racetrack, grass, and boundaries, reaching the end of the track in as little time as possible" \cite{rl_simple_racing}. The agent is a car in acting on a race track environment in which it must navigate from its starting state and travel over all track tiles, i.e., complete a lap around the track. 
+
+The state space consists of the sequence of frames for the in-game screen, each of which is represented by an RGB (Red, Green, Blue) grid of dimensions 96 x 96 x 3, i.e., three matrices of size 96 x 96, each matrix pertaining to red, green, and blue. The action space is a discretized version of the set of tuples $A = (s, a, d) | s \in [-1, 1], a \in [0, 1], d \in [0, 1]$. The reward of a given execution of an agent through the environment is computed as follows, where $t$ is the number of in-game frames involved in the car travelling from the starting point to the end of the track (denoted as a function $reward(t)$):
+
+\begin{center}
+	$ reward(t) = 1000 - \dfrac{t}{10} $
+\end{center}
 
 %%%%%%%%%%%%%%%%%
 %   State/Observation Space   %
@@ -61,30 +71,98 @@ In this section you need to provide a short introduction to the problem. What is
 
 \section{State/Observation Space}
 
-What is the state and observation space of your problem. What is the size of the state space. Is it continuous or discrete? For example in the mountain car problem mentioned in the class (SARSA tutorial), the observation space in a vector [car position, car velocity]. As this is a one-dimensional problem, with a car moving on a curve like feature, its location is given by a continuous value between [-1.2,0.6] and the velocity is a bounded continuous value between [-0.07,0.07].
+The state space is a sequence of 96 x 96 x 3 matrices, each of which represents an in-game frame. Each matrix is 96 x 96 pixels, with each entry being a floating point value from 0 to 255, making the state space continuous. If we assumed that each entry in a given matrix is an integer value however, we are able to arrive at a size for our state space, $256^{3 \cdot 96^{2}}$. For each of the 256 possibilites of a particular entry in a red or $R$ matrix, there are 256 additional possibilities for the corresponding entry of the green or $G$ matrix, and 256 further possible integers for the matching pixel of the blue or $B$ matrix. Such set of pixels needs to be considered 96 x 96 times. 
+
+%%%%%%%%%%%%%%%%%
+%   Action Space   %
+%%%%%%%%%%%%%%%%%
 
 \section{Action Space}
+
+The action space is a discretized version of the action space defined in section 1, with elements $s$, $a$, and $d$, represented by degree of steering, acceleration, and breaking, respectively: this action space is discrete. The size of the actions space is 12. For an agent or object \verb|RacingAgent|, \verb|RacingAgent.actions| is set as follows:
+
+\begin{lstlisting}
+class RacingAgent:
+	def __init__(
+		self,
+		actions=[
+		(-1, 1, 0.2), (0, 1, 0.2), (1, 1, 0.2), (-1, 1, 0),
+		(0, 1, 0), (1, 1, 0), (-1, 0, 0.2), (0, 0, 0.2),
+		(1, 0, 0.2), (-1, 0, 0), (0, 0, 0), (1, 0, 0)
+		]),
+# ...
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%
+%   Reward Scheme   %
+%%%%%%%%%%%%%%%%%
+
+
+ 
+
 
 The same as observation space you need to specify your action space, what are the actions in your problem. What is the size of the action space? Is it continuous or discrete? For example, the action space in mountain car problem is discrete and given as [Left, Neutral, Right]. 
 
 \section{Reward Scheme}
 
-Here you need to describe your reward formulation. In the previous example, reward formulation is defined as:
+The reward is -0.1 every frame and +1000/t for every track tile visited, where $T$ is the total number of tiles visited in the track. For example, if you have finished in 503 frames, your reward would br 1000 - 0.1*503 =] 8 points. The episode finishes once all of the track tiles are visited. The car can also go outside of the playfield - that is, far off the track, in which case it will receive -100 reward and die.
 
-\section{Methodology and Algorithm Description}
+%%%%%%%%%%%%%%%%%
+%   Methdology and Algorithm Description  %
+%%%%%%%%%%%%%%%%%
+
+\section{Methodology and Algorithm Description} 
+
+
+\subsection{Description of the Algorithm}
+
+% Places of reference: section 3.2 of following, https://web.stanford.edu/class/aa228/reports/2018/final150.pdf
+
+% NOTE: Methodoogies / experiments are planned to be combined into a single approach once all is compiled
+\subsection{Ethan's Methdologies / Experiments}
+
+
+\subsection{Anshul's Methdologies / Experiments}
+
+
+\subsection{Max's Methdologies / Experiments}
 
 The description of the algorithm, network architecture and your implementation. What kind of methods you explored to solve the problem? If you had to for example, use any type of discretization method to discretize your observation space you can describe it here.
 
 The selection of hyperparameters can also be discussed here. This process is important in determining how the agent will function.
 
+%%%%%%%%%%%%%%%%%
+%   Results  %
+%%%%%%%%%%%%%%%%%
+
 \section{Results}
+
+
+\subsection{Ethan's Results}
+
+
+\subsection{Anshul's Results}
+
+
+\subsection{Max's Results}
 
 For the results section, you should discuss why you obtained the results you did. What if you tried a different hyperparameter, how would it have affected your results?
 If you are adding figures or table to visualize your results make sure to add informative captions to describe the figures and tables. 
+
+%%%%%%%%%%%%%%%%%
+%   Discussion  %
+%%%%%%%%%%%%%%%%%
 
 \section{Discussion}
 
 In this section you can provide some information about what were the challenges you had during the implementation and how you overcame them. Finally, you can discuss what future work and improvement you may consider later.
 Here you can also add each group member contribution in this project. 
+
+
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
 
 \end{document}
